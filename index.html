@@ -1,0 +1,48 @@
+﻿<html>
+<head>
+	<title>default - hta+</title>
+</head>
+<body>
+	<h1>hta+</h1>
+
+	<div>
+		このプログラムはmshta.exeの代替品として作成されました。<br />
+		HTMLとJavaScriptでデスクトップアプリを作成する事に使用できます。<br />
+	</div>
+
+	<div>
+		<h2>htaオブジェクト</h2>
+		以下のコードを実行すると、hta.jsが読み込まれます。<br />
+		<pre>window.chrome.webview.postMessage('hta(load完了)')</pre><br />
+		読み込みが完了すると、上記の場合は<pre>load完了</pre>という名前の関数がコールされます。<br />
+		<br />
+		hta.jsの読み込みが完了するとhtaオブジェクトが使用可能になります。<br />
+		htaオブジェクトを使用すると、ウィンドウの位置を変更したり、テキストファイルの出力などが可能になります。<br />
+		<br />
+		hta.jsファイルを静的に参照したい場合は<a href="#" id=lnkDL>こちらのリンク先</a>からコピーして、任意の場所に保存してください。<br />
+	</div>
+
+	<div>
+		<h2>機能の追加</h2>
+		<button onClick="hta.ウィンドウ.プロパティ.get('width').then(str => this.innerText = str)">get width</button>
+	</div>
+
+</body>
+<script>
+	window.chrome.webview.postMessage('hta(test)')
+	const test = ()=>{
+		hta.ウィンドウ.プロパティ.set('title', 'default')
+	}
+
+	lnkDL.onclick = ()=>{
+		const arrScript = document.getElementsByTagName('script')
+		let path
+		for(let i=0; i<arrScript.length ;i++){
+			if(!arrScript[i].src.match(/hta.js$/)){continue}
+			path = arrScript[i].src
+			break
+		}
+		hta.shell.cmd('explorer', '/select,"'+decodeURI(path).replace(/^file:\/+/,'').replace(/\//g,'\\')+'"')
+	}
+</script>
+</html>
